@@ -1,0 +1,36 @@
+﻿@using cms_net.Utils
+@{
+
+    var componentNameList = ViewData["componentNameList"] as List<String>;
+}
+
+<h1>Compontent List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nome componente</th>
+            <th scope="col">Azioni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (string componentName in componentNameList){
+           
+                <tr>
+                    <td>@componentName</td>
+                    <td>
+                    @if (ComponentHelper.isComponentInstalled(componentName))
+                    {
+                          <a href="@Url.Action("UninstallComponent","Admin",new { name = componentName })">Disinstalla</a>
+                       
+                    }
+                    else
+                    {
+                       <a href="@Url.Action("InstallComponent","Admin",new { name = componentName })">Installa</a>
+                    }
+                     </td>
+               
+                </tr>
+        }
+    </tbody>
+</table>
